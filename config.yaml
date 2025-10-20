@@ -1,7 +1,7 @@
 # Controller configuration for KeyCrate
 workers:
-  - "http://192.168.1.15:5000"
-  - "http://192.168.1.16:5000"
+  - "http://127.0.0.1:5000"
+  - "http://127.0.0.1:5000"
 
 op: "sha256_cpu"          # change to your ATECC op when ready
 total_iters: 2000000      # across all workers
