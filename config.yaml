@@ -1,0 +1,9 @@
+# Controller configuration for KeyCrate
+workers:
+  - "http://127.0.0.1:5000"
+  - "http://127.0.0.1:5000"
+
+op: "sha256_cpu"          # change to your ATECC op when ready
+total_iters: 2000000      # across all workers
+concurrency_per_worker: 4 # threads per worker
+payload: {}               # op-specific inputs (e.g., digest_hex for sign)
