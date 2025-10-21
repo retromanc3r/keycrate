@@ -3,7 +3,7 @@ import argparse, requests, time, yaml, concurrent.futures as cf
 import os
 
 def load_config(file_path):
-    with open(file_path, 'r') as file:
+    with open(os.path.basename(file_path), 'r') as file:
         return yaml.safe_load(file)
 
 def call_worker(url, op, iters, concurrency, payload, timeout):
