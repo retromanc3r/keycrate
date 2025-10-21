@@ -93,6 +93,21 @@ Run fast unit tests with:
 python3 -m pytest
 ```
 
+## Example
+```bash
+python3 main.py --config config.yaml 
+[KeyCrate] op=sha256_cpu, workers=2 total_iters=2000000 conc/workers=4
+
+Per-worker:
+  scurvy       sha256_cpu   iters=1,000,000 dur=34.811s thr=28,726/s errors=0
+  scrum        sha256_cpu   iters=1,000,000 dur=34.930s thr=28,628/s errors=0
+
+Aggregate:
+  total iters: 2,000,000
+  aggregate throughput: 57,355 ops/s
+  wall time (controller): 34.944s
+```
+
 Add boundary tests for new operations and record manual verification steps (controller output snippet or `curl /health`) when incorporating external devices.
 
 ## Troubleshooting & Tips
