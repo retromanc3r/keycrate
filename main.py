@@ -1,9 +1,17 @@
 #! /usr/bin/env python3
 import argparse, requests, time, yaml, concurrent.futures as cf
+import os
 
 def load_config(file_path):
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
+    # Define the allowed base directory for config files
+    CONFIG_DIR = os.path.abspath(os.path.dirname(__file__))
+    abs_path = os.path.abspath(file_path)
+    # Ensure the resolved path is within the allowed directory
+    rel_path = os.path.relpath(abs_path, CONFIG_DIR)
+    if rel_path.startswith(os.pardir + os.sep) or rel_path == os.pardir:
+        raise ValueError("Access to the specified config file is not allowed.")
+    with open(os.path.basename(abs_path), 'r') as file:
+        return yaml.safe_load(file) 
 
 def call_worker(url, op, iters, concurrency, payload, timeout):
     r = requests.post(f"{url}/{op}", json={
