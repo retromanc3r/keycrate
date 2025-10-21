@@ -7,10 +7,11 @@ def load_config(file_path):
     CONFIG_DIR = os.path.abspath(os.path.dirname(__file__))
     abs_path = os.path.abspath(file_path)
     # Ensure the resolved path is within the allowed directory
-    if os.path.commonpath([abs_path, CONFIG_DIR]) != CONFIG_DIR:
+    rel_path = os.path.relpath(abs_path, CONFIG_DIR)
+    if rel_path.startswith(os.pardir + os.sep) or rel_path == os.pardir:
         raise ValueError("Access to the specified config file is not allowed.")
-    with open(abs_path, 'r') as file:
-        return yaml.safe_load(file)
+    with open(os.path.basename(abs_path), 'r') as file:
+        return yaml.safe_load(file) 
 
 def call_worker(url, op, iters, concurrency, payload, timeout):
     r = requests.post(f"{url}/{op}", json={
