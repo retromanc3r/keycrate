@@ -1,6 +1,8 @@
 flask
 requests
 PyYAML
-torch
-pandas
-
+lxml
+xmltodict
+pytest
+pytest-cov
+coverage
