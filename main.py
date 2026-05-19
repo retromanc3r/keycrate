@@ -5,11 +5,13 @@ import re
 
 def load_config(file_path):
     safe_name = os.path.basename(file_path)
+    allowed_configs = {"config.yaml", "config.yml"}
     if (
         not safe_name
         or safe_name in {".", ".."}
         or not re.fullmatch(r"[A-Za-z0-9._-]+", safe_name)
         or not safe_name.lower().endswith((".yaml", ".yml"))
+        or safe_name not in allowed_configs
     ):
         raise ValueError("Invalid config file name")
 
