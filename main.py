@@ -1,9 +1,19 @@
 #! /usr/bin/env python3
 import argparse, requests, time, yaml, concurrent.futures as cf
 import os
+import re
 
 def load_config(file_path):
-    with open(os.path.basename(file_path), 'r') as file:
+    safe_name = os.path.basename(file_path)
+    if (
+        not safe_name
+        or safe_name in {".", ".."}
+        or not re.fullmatch(r"[A-Za-z0-9._-]+", safe_name)
+        or not safe_name.lower().endswith((".yaml", ".yml"))
+    ):
+        raise ValueError("Invalid config file name")
+
+    with open(safe_name, 'r') as file:
         return yaml.safe_load(file)
 
 def call_worker(url, op, iters, concurrency, payload, timeout):
