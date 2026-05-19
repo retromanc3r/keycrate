@@ -1,4 +1,8 @@
 flask
 requests
 PyYAML
-
+lxml
+xmltodict
+pytest
+pytest-cov
+coverage
