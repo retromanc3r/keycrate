@@ -13,7 +13,12 @@ def load_config(file_path):
     ):
         raise ValueError("Invalid config file name")
 
-    with open(safe_name, 'r') as file:
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    full_path = os.path.realpath(os.path.join(base_dir, safe_name))
+    if os.path.commonpath([base_dir, full_path]) != base_dir:
+        raise ValueError("Config path escapes allowed directory")
+
+    with open(full_path, 'r') as file:
         return yaml.safe_load(file)
 
 def call_worker(url, op, iters, concurrency, payload, timeout):
